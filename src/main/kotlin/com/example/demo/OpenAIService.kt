@@ -75,7 +75,6 @@ class OpenAIService {
 
 
     val openAI = OpenAI(
-        token = "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",
+        token = "token",
     )
-
 }
