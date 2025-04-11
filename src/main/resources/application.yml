@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: Boo
+openai:
+  token: ${OPEN_AI_TOKEN}
