@@ -10,42 +10,46 @@ import com.aallam.openai.api.chat.ChatResponseFormat
 import com.aallam.openai.api.chat.JsonSchema
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.Json
+import org.springframework.stereotype.Service
 
-class OpenAIService {
+@Service
+class OpenAIService(
+    configurations: Configurations,
+) {
 
     companion object {
-        val responseFormat: String = "{\n" +
-                "    \"type\": \"object\",\n" +
-                "    \"properties\": {\n" +
-                "      \"result\": {\n" +
-                "        \"type\": \"array\",\n" +
-                "        \"items\": {\n" +
-                "          \"type\": \"object\",\n" +
-                "          \"properties\": {\n" +
-                "            \"month\": {\n" +
-                "              \"type\": \"string\"\n" +
-                "            },\n" +
-                "            \"reason\": {\n" +
-                "              \"type\": \"string\",\n" +
-                "              \"enum\": [\n" +
-                "                \"good weather\",\n" +
-                "                \"less crowded\",\n" +
-                "                \"festival\"\n" +
-                "              ]\n" +
-                "            }\n" +
-                "          },\n" +
-                "          \"required\": [\n" +
-                "            \"month\",\n" +
-                "            \"reason\"\n" +
-                "          ],\n" +
-                "          \"additionalProperties\": false\n" +
-                "        }\n" +
-                "      }\n" +
-                "    },\n" +
-                "    \"required\": [\n" +
-                "      \"result\"\n" +
-                "    ],\n" +
-                "    \"additionalProperties\": false\n" +
+        val responseFormat: String = "{" +
+                "    \"type\": \"object\"," +
+                "    \"properties\": {" +
+                "      \"result\": {" +
+                "        \"type\": \"array\"," +
+                "        \"items\": {" +
+                "          \"type\": \"object\"," +
+                "          \"properties\": {" +
+                "            \"month\": {" +
+                "              \"type\": \"string\"" +
+                "            }," +
+                "            \"reason\": {" +
+                "              \"type\": \"string\"," +
+                "              \"enum\": [" +
+                "                \"good weather\"," +
+                "                \"less crowded\"," +
+                "                \"festival\"" +
+                "              ]" +
+                "            }" +
+                "          }," +
+                "          \"required\": [" +
+                "            \"month\"," +
+                "            \"reason\"" +
+                "          ]," +
+                "          \"additionalProperties\": false" +
+                "        }" +
+                "      }" +
+                "    }," +
+                "    \"required\": [" +
+                "      \"result\"" +
+                "    ]," +
+                "    \"additionalProperties\": false" +
                 "  }"
     }
 
@@ -75,6 +79,6 @@ class OpenAIService {
 
 
     val openAI = OpenAI(
-        token = "token",
+        token = configurations.token,
     )
 }
