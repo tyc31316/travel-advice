@@ -1,2 +1,12 @@
-/mvnw text eol=lf
-*.cmd text eol=crlf
+/gradlew text eol=lf
+/gradlew.bat text eol=crlf
+*.sh text eol=lf
+*.java text eol=lf
+*.kt text eol=lf
+*.gradle text eol=lf
+*.properties text eol=lf
+*.md text eol=lf
+* text eol=lf
+*.class binary
+*.jar binary
+*.war binary
