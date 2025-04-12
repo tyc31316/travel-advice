@@ -1,5 +1,6 @@
 package com.example.demo
 
+import ApiResponse
 import com.aallam.openai.client.OpenAI
 import com.aallam.openai.api.chat.ChatCompletionRequest
 import com.aallam.openai.api.model.ModelId
@@ -8,6 +9,7 @@ import com.aallam.openai.api.chat.ChatRole
 import com.aallam.openai.api.chat.ChatCompletion
 import com.aallam.openai.api.chat.ChatResponseFormat
 import com.aallam.openai.api.chat.JsonSchema
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Service
@@ -16,42 +18,10 @@ import org.springframework.stereotype.Service
 class OpenAIService(
     configurations: Configurations,
 ) {
-
-    companion object {
-        val responseFormat: String = "{" +
-                "    \"type\": \"object\"," +
-                "    \"properties\": {" +
-                "      \"result\": {" +
-                "        \"type\": \"array\"," +
-                "        \"items\": {" +
-                "          \"type\": \"object\"," +
-                "          \"properties\": {" +
-                "            \"month\": {" +
-                "              \"type\": \"string\"" +
-                "            }," +
-                "            \"reason\": {" +
-                "              \"type\": \"string\"," +
-                "              \"enum\": [" +
-                "                \"good weather\"," +
-                "                \"less crowded\"," +
-                "                \"festival\"" +
-                "              ]" +
-                "            }" +
-                "          }," +
-                "          \"required\": [" +
-                "            \"month\"," +
-                "            \"reason\"" +
-                "          ]," +
-                "          \"additionalProperties\": false" +
-                "        }" +
-                "      }" +
-                "    }," +
-                "    \"required\": [" +
-                "      \"result\"" +
-                "    ]," +
-                "    \"additionalProperties\": false" +
-                "  }"
-    }
+    val openAI = OpenAI(
+        token = configurations.token,
+    )
+    val responseFormat = object {}.javaClass.getResource("/schema/response_format.json")?.readText() ?: throw IllegalArgumentException("Response format not found!")
 
     suspend fun getTravelSuggestion(rawData: String): ChatCompletion {
 
@@ -74,11 +44,8 @@ class OpenAIService(
         )
 
         val completion = openAI.chatCompletion(chatCompletionRequest)
+
         return completion
     }
 
-
-    val openAI = OpenAI(
-        token = configurations.token,
-    )
 }
