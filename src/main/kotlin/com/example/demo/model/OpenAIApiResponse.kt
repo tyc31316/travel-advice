@@ -1,6 +1,6 @@
 import com.fasterxml.jackson.annotation.JsonProperty
 
-data class ApiResponse(
+data class OpenAIApiResponse(
     val result: List<MonthInfo>,
 )
 

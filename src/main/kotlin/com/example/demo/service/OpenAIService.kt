@@ -1,6 +1,5 @@
-package com.example.demo
+package com.example.demo.service
 
-import ApiResponse
 import com.aallam.openai.client.OpenAI
 import com.aallam.openai.api.chat.ChatCompletionRequest
 import com.aallam.openai.api.model.ModelId
@@ -9,7 +8,7 @@ import com.aallam.openai.api.chat.ChatRole
 import com.aallam.openai.api.chat.ChatCompletion
 import com.aallam.openai.api.chat.ChatResponseFormat
 import com.aallam.openai.api.chat.JsonSchema
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.example.demo.config.Configurations
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Service
