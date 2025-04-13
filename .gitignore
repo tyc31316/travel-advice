@@ -32,5 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
+### Kotlin ###
+.kotlin
+
 ### Gradle ###
 .gradle
