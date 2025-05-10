@@ -15,15 +15,21 @@ repositories {
 
 dependencies {
     // Spring Boot
-    implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.springframework.boot:spring-boot-starter-web")
 
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
 
-    // JSON
+    // Jackson for Kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.0")
+
+    // Reactor
+    implementation("io.projectreactor:reactor-core:3.6.5")
+
+    // Kotlin Coroutine support
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.8.0")
 
     // OpenAI
     implementation("com.aallam.openai:openai-client-jvm:4.0.1")
@@ -36,10 +42,11 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "21"
-        freeCompilerArgs += "-Xjsr305=strict"
+kotlin {
+    jvmToolchain(21)
+
+    compilerOptions {
+        freeCompilerArgs.add("-Xjsr305=strict")
     }
 }
 
