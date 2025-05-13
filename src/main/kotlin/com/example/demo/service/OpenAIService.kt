@@ -8,17 +8,17 @@ import com.aallam.openai.api.chat.ChatRole
 import com.aallam.openai.api.chat.ChatCompletion
 import com.aallam.openai.api.chat.ChatResponseFormat
 import com.aallam.openai.api.chat.JsonSchema
-import com.example.demo.config.Configurations
+import com.example.demo.config.OpenAIConfig
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Service
 
 @Service
 class OpenAIService(
-    configurations: Configurations,
+    openAIConfig: OpenAIConfig,
 ) {
     val openAI = OpenAI(
-        token = configurations.token,
+        token = openAIConfig.token,
     )
     val responseFormat = object {}.javaClass.getResource("/schema/response_format.json")?.readText() ?: throw IllegalArgumentException("Response format not found!")
 
