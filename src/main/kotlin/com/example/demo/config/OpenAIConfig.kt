@@ -5,6 +5,6 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 
 @ConfigurationProperties("openai")
 @ConfigurationPropertiesScan
-data class Configurations(
+data class OpenAIConfig(
     val token: String,
 )
