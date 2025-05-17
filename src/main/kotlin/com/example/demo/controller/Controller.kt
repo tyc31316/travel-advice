@@ -28,4 +28,9 @@ class HelloController(
             ).result
             .toString()
     }
+
+    @GetMapping("hello")
+    fun getHello(): String {
+        return "hello"
+    }
 }
