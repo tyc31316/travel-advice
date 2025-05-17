@@ -1,16 +1,36 @@
-import React from 'react'
-import { Button, HStack, Input } from "@chakra-ui/react"
-import { useColorMode} from "@/components/ui/color-mode.tsx";
-
-
+import React, {use} from 'react'
+import { SearchDestination } from './components/search-destination/search-destination'
+import { useDestination } from './components/current-destination/use-current-destination'
+import { Suggestion } from './components/suggestion/suggestion'
 
 function App() {
-    const { toggleColorMode } = useColorMode()
+
+    const { destination, onDestinationChange } = useDestination()
+    const [ suggestion, setSuggestion ] = React.useState<String | undefined>()
+
+    React.useEffect(() => {
+
+        const getSuggestion = async () => {
+            return fetch(`http://localhost:8080/travel/suggestion/${destination}`)
+        }
+
+        if(destination){
+           getSuggestion().then(response => {
+               console.log(`getting suggestion: ${response}`)
+               response.text().then(result => {
+                   setSuggestion(`${destination}: ${result}`)
+               })
+
+           })
+        }
+
+    }, [destination])
+
     return (
-        <HStack>
-            <Input placeholder="Enter your next destination!"/>
-            <Button onClick={toggleColorMode}>Click me</Button>
-        </HStack>
+        <>
+            <SearchDestination onSearch={onDestinationChange}/>
+            <Suggestion suggestionRawData={suggestion} />
+        </>
     )
 }
 
